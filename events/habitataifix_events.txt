@@ -40,8 +40,10 @@ country_event = {
 		}
 		any_planet_within_border = {
 			OR = {
+# Vanilla
 				is_planet_class = pc_habitat
 				is_planet_class = pc_ringworld_habitable
+# Planetary Diversity - Planetary Habitats
 				is_planet_class = pc_pd_barren_cold_hab
 				is_planet_class = pc_pd_barren_hab
 				is_planet_class = pc_pd_frozen_hab
@@ -49,6 +51,8 @@ country_event = {
 				is_planet_class = pc_pd_hothouse_hab
 				is_planet_class = pc_pd_molten_hab
 				is_planet_class = pc_pd_asteroid_hab
+# Dyson Swarm - colonizing space
+				is_planet_class = pc_dyson_swarm
 			}
 			is_colony = no
 			is_under_colonization = no
@@ -255,17 +259,21 @@ country_event = {
 	immediate = {
 		random_planet_within_border = {
 			limit = {
-				OR = {
-					is_planet_class = pc_habitat
-					is_planet_class = pc_ringworld_habitable
-					is_planet_class = pc_pd_barren_cold_hab
-					is_planet_class = pc_pd_barren_hab
-					is_planet_class = pc_pd_frozen_hab
-					is_planet_class = pc_pd_gas_giant_hab
-					is_planet_class = pc_pd_hothouse_hab
-					is_planet_class = pc_pd_molten_hab
-					is_planet_class = pc_pd_asteroid_hab
-				}
+			OR = {
+# Vanilla
+				is_planet_class = pc_habitat
+				is_planet_class = pc_ringworld_habitable
+# Planetary Diversity - Planetary Habitats
+				is_planet_class = pc_pd_barren_cold_hab
+				is_planet_class = pc_pd_barren_hab
+				is_planet_class = pc_pd_frozen_hab
+				is_planet_class = pc_pd_gas_giant_hab
+				is_planet_class = pc_pd_hothouse_hab
+				is_planet_class = pc_pd_molten_hab
+				is_planet_class = pc_pd_asteroid_hab
+# Dyson Swarm - colonizing space
+				is_planet_class = pc_dyson_swarm
+			}
 				is_colony = no
 				is_under_colonization = no
 			}
