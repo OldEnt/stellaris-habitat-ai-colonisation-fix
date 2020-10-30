@@ -3,5 +3,6 @@ tags={
 	"Fixes"
 }
 name="Habitat AI colonisation fix"
-supported_version="2.7.*"
 picture="thumbnail.png"
+supported_version="2.8.*"
+remote_file_id="2145844864"
