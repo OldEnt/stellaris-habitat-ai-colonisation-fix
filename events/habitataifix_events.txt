@@ -40,20 +40,20 @@ country_event = {
 		}
 		any_planet_within_border = {
 			OR = {
-# Vanilla
+				# Vanilla
 				is_planet_class = pc_habitat
 				is_planet_class = pc_ringworld_habitable
-# Planetary Diversity - Planetary Habitats
+				# Planetary Diversity - Planetary Habitats
 				uses_district_set = pdplanethab
-			#	is_planet_class = pc_pd_barren_cold_hab
-			#	is_planet_class = pc_pd_barren_hab
-			#	is_planet_class = pc_pd_frozen_hab
-			#	is_planet_class = pc_pd_gas_giant_hab
-			#	is_planet_class = pc_pd_hothouse_hab
-			#	is_planet_class = pc_pd_molten_hab
-			#	is_planet_class = pc_pd_asteroid_hab
-			#	is_planet_class = pc_pd_toxic_hab
-# Dyson Swarm - colonizing space
+				#	is_planet_class = pc_pd_barren_cold_hab
+				#	is_planet_class = pc_pd_barren_hab
+				#	is_planet_class = pc_pd_frozen_hab
+				#	is_planet_class = pc_pd_gas_giant_hab
+				#	is_planet_class = pc_pd_hothouse_hab
+				#	is_planet_class = pc_pd_molten_hab
+				#	is_planet_class = pc_pd_asteroid_hab
+				#	is_planet_class = pc_pd_toxic_hab
+				# Dyson Swarm - colonizing space
 				is_planet_class = pc_dyson_swarm
 			}
 			is_colony = no
@@ -248,8 +248,91 @@ country_event = {
 			}
 			break = yes
 		}
+		else_if = {
+			limit = {
+				is_gestalt = yes
+				NOT = {
+					has_authority = auth_hive_mind
+				}
+				is_lithoid_empire = no
+				has_resource = {
+					type = alloys
+					amount > 400
+				}
+			}
+			add_resource = {
+				# minerals = -200
+				# energy = -200
+				# food = -200
+				# consumer_goods = -200
+				alloys = -400
+			}
+			country_event = {
+				id = habitataifix.30
+				days = 0
+				random = 0
+			}
+			break = yes
+		}
 		else = {
 			break = yes
+		}
+	}
+}
+
+# Because start_colony effect broke in 2.8
+planet_event = {
+	id = habitataifix.35
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				has_colony_progress >= 1
+			}
+			create_colony = {
+				owner = solar_system.owner
+				species = solar_system.owner
+				# ethos = solar_system.owner
+			}
+		}
+	}
+}
+
+# Hotfix for ongoing games.
+country_event = {
+	id = habitataifix.36
+	hide_window = yes
+	fire_only_once = yes
+	immediate = {
+		country_event = {
+			id = habitataifix.37
+			days = 480
+		}
+	}
+}
+
+country_event = {
+	id = habitataifix.37
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		save_event_target_as = habitataifix_assisted_colony_owner
+		every_planet_within_border = {
+			limit = {
+				has_colony_progress >= 1
+				num_pops = 0
+			}
+			set_planet_flag = habitataifix_assisted_colony
+			planet_event = {
+				id = habitataifix.35
+				days = 480
+			}
+			start_colony = {
+				owner = event_target:habitataifix_assisted_colony_owner
+				species = event_target:habitataifix_assisted_colony_owner
+				ethos = event_target:habitataifix_assisted_colony_owner
+			}
 		}
 	}
 }
@@ -259,34 +342,39 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		save_event_target_as = habitataifix_assisted_colony_owner
 		random_planet_within_border = {
 			limit = {
-			OR = {
-# Vanilla
-				is_planet_class = pc_habitat
-				is_planet_class = pc_ringworld_habitable
-# Planetary Diversity - Planetary Habitats
-				uses_district_set = pdplanethab
-			#	is_planet_class = pc_pd_barren_cold_hab
-			#	is_planet_class = pc_pd_barren_hab
-			#	is_planet_class = pc_pd_frozen_hab
-			#	is_planet_class = pc_pd_gas_giant_hab
-			#	is_planet_class = pc_pd_hothouse_hab
-			#	is_planet_class = pc_pd_molten_hab
-			#	is_planet_class = pc_pd_asteroid_hab
-			#	is_planet_class = pc_pd_toxic_hab
-# Dyson Swarm - colonizing space
-				is_planet_class = pc_dyson_swarm
-			}
+				OR = {
+					# Vanilla
+					is_planet_class = pc_habitat
+					is_planet_class = pc_ringworld_habitable
+					# Planetary Diversity - Planetary Habitats
+					uses_district_set = pdplanethab
+					#	is_planet_class = pc_pd_barren_cold_hab
+					#	is_planet_class = pc_pd_barren_hab
+					#	is_planet_class = pc_pd_frozen_hab
+					#	is_planet_class = pc_pd_gas_giant_hab
+					#	is_planet_class = pc_pd_hothouse_hab
+					#	is_planet_class = pc_pd_molten_hab
+					#	is_planet_class = pc_pd_asteroid_hab
+					#	is_planet_class = pc_pd_toxic_hab
+					# Dyson Swarm - colonizing space
+					is_planet_class = pc_dyson_swarm
+				}
 				is_colony = no
 				is_under_colonization = no
 			}
-			start_colony = {
-				owner = root
-				species = root.species
-				#ethos = root.species
-			}
 			set_planet_flag = habitataifix_assisted_colony
+			planet_event = {
+				id = habitataifix.35
+				days = 480
+			}
+			start_colony = {
+				owner = event_target:habitataifix_assisted_colony_owner
+				species = event_target:habitataifix_assisted_colony_owner
+				ethos = event_target:habitataifix_assisted_colony_owner
+			}
 		}
 	}
 }
