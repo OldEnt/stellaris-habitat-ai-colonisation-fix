@@ -3,3 +3,9 @@ on_yearly_pulse_country = {
 		habitataifix.0
 	}
 }
+
+on_yearly_pulse = {
+	events = {
+		habitataifix.40		# Annual fix for start_colony effect, failsafe.
+	}
+}

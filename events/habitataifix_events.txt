@@ -378,3 +378,53 @@ country_event = {
 		}
 	}
 }
+
+# Annual fix for start_colony effect, failsafe.
+event = {
+	id = habitataifix.40
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_global_flag = habitataifix_global_flag_start_colony_effect_fix_disabled
+		}
+	}
+	immediate = {
+		event_target:global_event_country = {
+			country_event = {
+				id = habitataifix.41				#	Delay for performance.
+				days = 56
+				random = 10
+			}
+		}
+	}
+}
+
+# # Fix event delayed for game start performance and possibility for other mods to disable this without overwrites.
+country_event = {
+	id = habitataifix.41
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		every_planet = {
+			limit = {
+				has_colony_progress >= 1
+			}
+			set_planet_flag = habitataifix_assisted_colony
+			set_planet_flag = habitataifix_assisted_colony_annual_check
+			create_colony = {
+				owner = solar_system.owner
+				species = solar_system.owner
+			}
+		}
+	}
+}
+
+event = {
+	id = habitataifix.99
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_global_flag = habitataifix_global_flag_start_colony_effect_fix_disabled
+	}
+}
