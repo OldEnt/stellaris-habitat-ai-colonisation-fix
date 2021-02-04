@@ -421,7 +421,7 @@ country_event = {
 }
 
 event = {
-	id = habitataifix.99
+	id = habitataifix.100
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
