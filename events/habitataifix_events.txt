@@ -57,6 +57,8 @@ country_event = {
 					#	is_planet_class = pc_pd_toxic_hab
 					# Dyson Swarm - colonizing space
 					is_planet_class = pc_dyson_swarm
+					# Real Space - Planetary Stations
+					has_planet_flag = planetary_station
 				}
 				is_colony = no
 				is_under_colonization = no
